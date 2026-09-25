@@ -3,7 +3,7 @@
 
 registrarPerfil({
   nombre: "mjrr",
-  emoji: "🧙‍♂️",
+  emoji: "💻",
   rol: "Developer",
   lenguajeFavorito: "Python (sí, cuenta como lenguaje 😄)",
   datoCurioso: "Me gusta leer libros",
