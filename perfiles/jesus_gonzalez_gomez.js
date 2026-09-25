@@ -1,8 +1,8 @@
 registrarPerfil({
   nombre: "Jesús González Gómez",
   emoji: "👨‍💻",
-  rol: "Estudiante de desarrollo web",
-  lenguajeFavorito: "JavaScript",
-  datoCurioso: "Aprende Git a base de commits bien escritos",
+  rol: "Estudiante de desarrollo web.",
+  lenguajeFavorito: "Python",
+  datoCurioso: "Aprendiendo programación para vivir bien.",
   github: "El-Jesule",
 });
