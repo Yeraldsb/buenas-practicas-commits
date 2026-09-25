@@ -2,7 +2,7 @@
 // Después, añade "tunombre" a perfiles/lista.js para que aparezca tu tarjeta.
 
 registrarPerfil({
-  nombre: "William Hern´ández",
+  nombre: "William Hernández Galvis",
   emoji: "🧛‍♂️",
   rol: "Estudiante de Bootcamp",
   lenguajeFavorito: "ReactJS",
