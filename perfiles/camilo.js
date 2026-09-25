@@ -1,8 +1,8 @@
 registrarPerfil({
   nombre: "Camilo Piamba",
   emoji: "📎",
-  rol: "Tech Lead del equipo",
-  lenguajeFavorito: "Git (sí, cuenta como lenguaje 😄)",
-  datoCurioso: "Rechaza commits mal escritos hasta en sueños",
-  github: "tu-usuario-de-github",
+  rol: "Un tipo más jeje",
+  lenguajeFavorito: "Prompt 🗿",
+  datoCurioso: "La carta de Smith contiene el infinito en un circulo finito",
+  github: "webcartaonline",
 });
