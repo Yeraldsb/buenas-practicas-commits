@@ -5,4 +5,6 @@
 const LISTA_PERFILES = [
   "profe",
   "cris"
+  "simon_lopez"
+
 ];
