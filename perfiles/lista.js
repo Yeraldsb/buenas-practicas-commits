@@ -3,5 +3,7 @@
 // Ejemplo: si creaste perfiles/pepa.js  →  añade "pepa",
 
 const LISTA_PERFILES = [
-  "profe", "konsta",
+  "profe", 
+  "konsta",
+  "simon_lopez"
 ];
