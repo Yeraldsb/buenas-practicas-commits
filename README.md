@@ -7,7 +7,7 @@ Web colaborativa de la clase: cada persona del equipo añade **su propia tarjeta
 ```bash
 git clone <URL-de-este-repo>
 cd <carpeta-del-repo>
-bash setup.sh        # instala el guardián de commits (obligatorio)
+bash setup.sh
 ```
 
 Para ver la web, abre `index.html` en el navegador. Sin servidores, sin instalaciones raras.
@@ -78,7 +78,7 @@ Está en [CHECKLIST.md](CHECKLIST.md). Léelo, imprímelo, tatúatelo.
 5. **Comprueba que funciona:** abre `index.html` y busca tu tarjeta.
 6. **Pasa el [checklist](CHECKLIST.md), revisa tu diff y haz commit:**
    ```bash
-   git diff                       # ¿qué estoy cambiando exactamente?
+   git diff
    git add perfiles/tunombre.js perfiles/lista.js
    git commit -m "add: crea la tarjeta de perfil de TuNombre"
    ```

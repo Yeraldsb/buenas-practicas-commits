@@ -1,6 +1,6 @@
 registrarPerfil({
-  nombre: "El Profe",
-  emoji: "🧙‍♂️",
+  nombre: "Camilo Piamba",
+  emoji: "📎",
   rol: "Tech Lead del equipo",
   lenguajeFavorito: "Git (sí, cuenta como lenguaje 😄)",
   datoCurioso: "Rechaza commits mal escritos hasta en sueños",

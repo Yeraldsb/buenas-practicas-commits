@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-# Instala el guardián de commits. Ejecútalo UNA vez después de clonar: bash setup.sh
-
 set -e
 cd "$(dirname "$0")"
 
