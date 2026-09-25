@@ -3,8 +3,8 @@
 
 registrarPerfil({
     nombre: "Patricia Aparicio Diaz",
-    emoji: "🧙‍♂️",
-    rol: "Junior Frontend Web Developer",
+    emoji: "🚀",
+    rol: "Junior Full Stack Web Developer",
     lenguajeFavorito: "React",
     datoCurioso: "Amante de React, el buen diseño frontend y que el código pase el linter a la primera 🚀",
     github: "https://github.com/apariciodiazpatricia-cell",
