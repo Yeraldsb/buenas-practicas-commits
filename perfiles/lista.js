@@ -3,5 +3,6 @@
 // Ejemplo: si creaste perfiles/pepa.js  →  añade "pepa",
 
 const LISTA_PERFILES = [
+  "profe",
   "patricia",
 ];
