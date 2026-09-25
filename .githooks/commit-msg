@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# 🤖 Guardián de commits — valida el mensaje contra el Contrato del Equipo (README.md)
+# Git lo ejecuta automáticamente en cada `git commit`. Si falla, el commit NO se crea.
+
+ARCHIVO_MENSAJE="$1"
+PRIMERA_LINEA=$(head -n 1 "$ARCHIVO_MENSAJE")
+
+# Los commits automáticos de merge y revert se dejan pasar
+case "$PRIMERA_LINEA" in
+  Merge*|Revert*) exit 0 ;;
+esac
+
+VERBOS="add|fix|update|remove|docs|style|refactor|test|chore"
+ERRORES=()
+
+# Regla 1: formato "verbo: mensaje"
+if ! echo "$PRIMERA_LINEA" | grep -qE "^($VERBOS): "; then
+  ERRORES+=("El mensaje debe empezar por un verbo permitido seguido de ': '.
+     Verbos: add, fix, update, remove, docs, style, refactor, test, chore")
+fi
+
+# Regla 2: la explicación debe tener sustancia (mínimo 10 caracteres tras el verbo)
+DESCRIPCION=$(echo "$PRIMERA_LINEA" | sed -E "s/^($VERBOS): //")
+if [ "${#DESCRIPCION}" -lt 10 ]; then
+  ERRORES+=("La explicación es demasiado corta (mínimo 10 caracteres).
+     'add: cosas' no le dice nada a tu equipo.")
+fi
+
+# Regla 3: mensajes prohibidos (los clásicos que no explican nada)
+if echo "$PRIMERA_LINEA" | grep -qiE "(cambios|arreglos varios|subiendo|wip|asdf|final|prueba|test123|todo listo)( |$)"; then
+  ERRORES+=("Mensaje sospechoso: palabras como 'cambios', 'wip', 'final' o 'subiendo'
+     no explican qué hace el commit. Sé específico/a.")
+fi
+
+# Regla 4: primera línea de máximo 72 caracteres
+if [ "${#PRIMERA_LINEA}" -gt 72 ]; then
+  ERRORES+=("La primera línea tiene ${#PRIMERA_LINEA} caracteres (máximo 72).
+     Resume, y si necesitas más detalle, escríbelo debajo tras una línea en blanco.")
+fi
+
+if [ "${#ERRORES[@]}" -eq 0 ]; then
+  echo "✅ Commit aceptado por el guardián. ¡Buen trabajo!"
+  exit 0
+fi
+
+echo ""
+echo "╔══════════════════════════════════════════════════════════════════╗"
+echo "║  🚫 COMMIT RECHAZADO por el guardián del Contrato del Equipo      ║"
+echo "╚══════════════════════════════════════════════════════════════════╝"
+echo ""
+echo "Tu mensaje:  \"$PRIMERA_LINEA\""
+echo ""
+echo "Problemas encontrados:"
+for e in "${ERRORES[@]}"; do
+  echo "  ❌ $e"
+done
+echo ""
+echo "Formato correcto:   verbo: mensaje explicativo"
+echo "Ejemplos válidos:"
+echo "  add: crea la tarjeta de perfil de Ana"
+echo "  fix: corrige el enlace roto a GitHub en la tarjeta"
+echo "  update: cambia la foto de perfil por una más reciente"
+echo ""
+echo "Revisa el checklist (CHECKLIST.md) y vuelve a intentarlo con:"
+echo "  git commit -m \"verbo: tu mensaje explicativo\""
+echo ""
+exit 1

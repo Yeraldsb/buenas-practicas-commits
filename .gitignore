@@ -1,0 +1,28 @@
+# Material privado del profe — no se sube al repo de la clase
+material-profe/
+repo-del-crimen/
+
+# Secretos y configuración local — NUNCA se suben
+.env
+*.env
+*.local
+
+# Dependencias
+node_modules/
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Temporales y copias "por si acaso"
+*.tmp
+*.bak
+*-copia.*
+*-final.*
+*-FINAL*.*
