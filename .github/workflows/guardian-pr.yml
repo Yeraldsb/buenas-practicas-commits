@@ -1,0 +1,55 @@
+# 🤖 Guardián de PRs — el mismo contrato del equipo, ahora en la nube.
+# Se ejecuta solo en cada Pull Request y valida:
+#   1. Que TODOS los commits del PR cumplan "verbo: mensaje explicativo" (falla si no).
+#   2. Que el PR no toque archivos fuera de perfiles/ (solo avisa, no falla).
+
+name: Guardián de PRs
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  guardian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validar los mensajes de commit del PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "🤖 Revisando los commits del PR #${{ github.event.number }}..."
+          MALOS=0
+          while IFS= read -r MENSAJE; do
+            case "$MENSAJE" in
+              Merge*|Revert*) continue ;;
+            esac
+            if ! echo "$MENSAJE" | grep -qE '^(add|fix|update|remove|docs|style|refactor|test|chore): .{10,}'; then
+              echo "❌ No cumple el contrato: \"$MENSAJE\""
+              MALOS=$((MALOS+1))
+            else
+              echo "✅ $MENSAJE"
+            fi
+          done < <(gh api "repos/${{ github.repository }}/pulls/${{ github.event.number }}/commits" \
+                     --jq '.[].commit.message | split("\n")[0]')
+          if [ "$MALOS" -gt 0 ]; then
+            echo ""
+            echo "🚫 $MALOS commit(s) no cumplen el Contrato del Equipo (README.md)."
+            echo "   Formato: verbo: mensaje explicativo (add, fix, update, remove, docs, style, refactor, test, chore)"
+            exit 1
+          fi
+          echo ""
+          echo "🎉 Todos los commits cumplen el contrato."
+
+      - name: Avisar si el PR toca archivos fuera de su alcance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FUERA=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
+                    --jq '.[].filename' | grep -v '^perfiles/' || true)
+          if [ -n "$FUERA" ]; then
+            echo "⚠️ Este PR toca archivos fuera de perfiles/ — el revisor debe mirarlo con lupa:"
+            echo "$FUERA"
+            echo "::warning::El PR modifica archivos fuera de perfiles/. Revisar el alcance."
+          else
+            echo "✅ El PR solo toca perfiles/ — alcance correcto."
+          fi
