@@ -4,6 +4,10 @@
 
 const LISTA_PERFILES = [
   "profe",
+<<<<<<< HEAD
+  "mjrr",
+=======
   "oscar-mauricio",
   "simon_lopez"
+>>>>>>> origin/main
 ];
